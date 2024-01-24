@@ -26,11 +26,11 @@
 <!--
      https://developer.android.com/guide/navigation/design/deep-link#implicit
 -->
-        <deepLink app:uri="https://senya.travel.com/attraction/{attractionId}" />
+<!--        <deepLink app:uri="https://senya.travel.com/attraction/{attractionId}" />
 
         <argument
             android:name="attractionId"
-            app:argType="string" />
+            app:argType="string" />-->
     </fragment>
 </navigation>
 

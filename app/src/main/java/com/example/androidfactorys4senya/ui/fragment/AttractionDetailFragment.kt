@@ -13,34 +13,15 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.example.androidfactorys4senya.R
-import com.example.androidfactorys4senya.data.Attraction
 import com.example.androidfactorys4senya.databinding.FragmentActtractionDetailBinding
-import com.example.androidfactorys4senya.databinding.FragmentHomeBinding
-import com.example.androidfactorys4senya.ui.fragment.home.HomeFragmentAdapter
-import com.example.androidfactorys4senya.ui.fragment.home.HomeFragmentDirections
 import com.squareup.picasso.Picasso
 
 class AttractionDetailFragment: BaseFragment() {
     private var _binding: FragmentActtractionDetailBinding? = null
     private val binding get() = _binding!!
-    private val safeArgs: AttractionDetailFragmentArgs by navArgs()
-    private val attraction: Attraction by lazy {
-        attractions.find { it.id == safeArgs.attractionId }!!
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        setHasOptionsMenu(true)
-
-    }
+//    private val safeArgs: AttractionDetailFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,45 +29,52 @@ class AttractionDetailFragment: BaseFragment() {
         _binding = FragmentActtractionDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.titleTextView.text = attraction.title
-        binding.monthsToVisitTextView.text = attraction.months_to_visit
-        binding.numberOfFactsTextView.text = "${attraction.facts.size} Facts"
-        binding.descriptionTextView.text = attraction.description
-        Picasso.get().load(attraction.image_urls[0]).into(binding.imageView)
-        binding.numberOfFactsTextView.setOnClickListener {
-            val stringBuilder = StringBuilder("")
-            attraction.facts.forEach {
-                stringBuilder.append("\u2022 $it")
-                stringBuilder.append("\n\n")
-            }
-            val message = stringBuilder.toString()
-//            AlertDialog.Builder(requireContext(), R.style.MyDialog)
-            AlertDialog.Builder(requireContext())
-                .setTitle("${attraction.title} Facts")
-                .setMessage(message)
-                .setPositiveButton("Ok", object :DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-//                        dialog?.dismiss()
-                    }
-                })
-                .setNegativeButton("No!") { dialog, which ->
-//                    dialog.dismiss()
+
+        activityViewModel.selectedAttractionLiveData.observe(viewLifecycleOwner) { attraction ->
+            binding.titleTextView.text = attraction.title
+            binding.monthsToVisitTextView.text = attraction.months_to_visit
+            binding.numberOfFactsTextView.text = "${attraction.facts.size} Facts"
+            binding.descriptionTextView.text = attraction.description
+            Picasso.get().load(attraction.image_urls[0]).into(binding.imageView)
+            binding.numberOfFactsTextView.setOnClickListener {
+
+                val stringBuilder = StringBuilder("")
+                attraction.facts.forEach {
+                    stringBuilder.append("\u2022 $it")
+                    stringBuilder.append("\n\n")
                 }
+                val message = stringBuilder.toString()
+//            AlertDialog.Builder(requireContext(), R.style.MyDialog)
+                AlertDialog.Builder(requireContext())
+                    .setTitle("${attraction.title} Facts")
+                    .setMessage(message)
+                    .setPositiveButton("Ok", object :DialogInterface.OnClickListener {
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+//                        dialog?.dismiss()
+                        }
+                    })
+                    .setNegativeButton("No!") { dialog, which ->
+//                    dialog.dismiss()
+                    }
 //                .setCancelable(false)
-                .show()
+                    .show()
+            }
         }
+
         requireActivity().addMenuProvider( object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_attraction_detail, menu)
             }
             @SuppressLint("QueryPermissionsNeeded")
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                val attraction = activityViewModel.selectedAttractionLiveData.value!!
                 return when (menuItem.itemId) {
                     R.id.menuItemLocation -> {
-                        //https://developers.google.com/maps/documentation/urls/android-intents?hl=ru#display-a-map
+                        val attraction = activityViewModel.selectedAttractionLiveData.value ?: return true
+                        activityViewModel.locationSelectedLiveData.postValue(attraction)
+/*                        //https://developers.google.com/maps/documentation/urls/android-intents?hl=ru#display-a-map
                         // Create a Uri from an intent string. Use the result to create an Intent.
                         val gmmIntentUri = Uri.parse(
                             "geo:${attraction.location.latitude},${attraction.location.longitude}?z=15" +
@@ -99,7 +87,7 @@ class AttractionDetailFragment: BaseFragment() {
                         // Attempt to start an activity that can handle the Intent
                         mapIntent.resolveActivity(requireContext().packageManager)?.let {
                             startActivity(mapIntent)
-                        }
+                        }*/
                         true
                     }
                     else -> false
