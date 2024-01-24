@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidfactorys4senya.databinding.FragmentHomeBinding
@@ -24,9 +25,11 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val homeAdapter = HomeFragmentAdapter {
+        val homeAdapter = HomeFragmentAdapter {attractionId ->
             // handle item being clicked - navigate
-
+            val navDirections = HomeFragmentDirections
+                .actionHomeFragmentToAttractionDetailFragment(attractionId)
+            navController.navigate(navDirections)
         }
         binding.recyclerView.adapter = homeAdapter
         homeAdapter.setData(attractions)

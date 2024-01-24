@@ -9,7 +9,7 @@ import com.example.androidfactorys4senya.databinding.ViewHolderAttractionBinding
 import com.squareup.picasso.Picasso
 
 class HomeFragmentAdapter(
-    private val onClickedCallback: () -> Unit
+    private val onClickedCallback: (String) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val attractions = ArrayList<Attraction>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,13 +30,13 @@ class HomeFragmentAdapter(
         )
     {
         private val binding = ViewHolderAttractionBinding.bind(itemView)
-        fun onBind(attraction: Attraction, onClicked: () -> Unit) {
+        fun onBind(attraction: Attraction, onClicked: (String) -> Unit) {
             binding.titleTextView.text = attraction.title
             binding.monthsToVisitTextView.text = attraction.months_to_visit
             //image via Picasso
             Picasso.get().load(attraction.image_urls[0]).into(binding.headerImageView)
             binding.root.setOnClickListener {
-                onClicked
+                onClicked (attraction.id)
             }
         }
     }
