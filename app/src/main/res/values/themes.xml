@@ -3,7 +3,11 @@
     <style name="Base.Theme.AndroidFactoryS4Senya" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:fontFamily">@font/almendra</item>
     </style>
 
     <style name="Theme.AndroidFactoryS4Senya" parent="Base.Theme.AndroidFactoryS4Senya" />
+    <style name="MyDialog" parent="Theme.Material3.DayNight">
+        <item name="colorOnPrimary">@android:color/holo_orange_light</item>
+    </style>
 </resources>

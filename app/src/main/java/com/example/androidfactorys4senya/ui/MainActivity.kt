@@ -1,13 +1,16 @@
 package com.example.androidfactorys4senya.ui
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.androidfactorys4senya.R
+import com.example.androidfactorys4senya.arch.AttractionsViewModel
 import com.example.androidfactorys4senya.data.Attraction
 import com.example.androidfactorys4senya.data.AttractionsResponse
 import com.squareup.moshi.JsonAdapter
@@ -21,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         parseAttractions()
     }
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

@@ -24,6 +24,7 @@
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:fontFamily="@font/almendra"
         android:padding="8dp"
         android:background="@drawable/background_details_title"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
