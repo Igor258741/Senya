@@ -11,11 +11,11 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 class AttractionRepository {
     // networking
     private val moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
-    fun parseAttractions(context: Context):  List<Attraction> {
+    fun parseAttractions(context: Context):  ArrayList<Attraction> {
         val textFromFile = context.resources.openRawResource(R.raw.croatia)
             .bufferedReader().use { it.readText() }
         val adapter: JsonAdapter<AttractionsResponse> = moshi.adapter(AttractionsResponse::class.java)
-        return adapter.fromJson(textFromFile)!!.attractions ?: listOf()
+        return adapter.fromJson(textFromFile)!!.attractions as ArrayList<Attraction>
 //        val type = Types.newParameterizedType(
 //            List::class.java,
 //            Attraction::class.java

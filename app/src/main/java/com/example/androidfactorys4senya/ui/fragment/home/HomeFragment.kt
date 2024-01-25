@@ -26,18 +26,19 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // handle item being clicked - navigate
-        val homeAdapter = HomeFragmentAdapter { attractionId ->
+        val epoxyController = HomeFragmentController { attractionId ->
 //            val navDirections = HomeFragmentDirections.actionHomeFragmentToAttractionDetailFragment(attractionId)
 //            navController.navigate(navDirections)
             activityViewModel.onAttractionSelected(attractionId)
             navController.navigate(R.id.action_homeFragment_to_attractionDetailFragment)
         }
-        binding.recyclerView.adapter = homeAdapter
+        binding.recyclerView.adapter = epoxyController.adapter
         binding.recyclerView.addItemDecoration( DividerItemDecoration( requireContext(), RecyclerView.VERTICAL ))
 
         activityViewModel.attractionsListLiveData.observe(viewLifecycleOwner) { attractions ->
-            homeAdapter.setData(attractions)
+            epoxyController.attractions = attractions
         }
+
     }
 
     override fun onDestroy() {

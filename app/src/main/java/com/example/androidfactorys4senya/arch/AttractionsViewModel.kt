@@ -7,7 +7,7 @@ import com.example.androidfactorys4senya.data.Attraction
 
 class AttractionsViewModel: ViewModel() {
     private val repository = AttractionRepository()
-    val attractionsListLiveData = MutableLiveData<List<Attraction>>()
+    val attractionsListLiveData = MutableLiveData<ArrayList<Attraction>>()
     val selectedAttractionLiveData = MutableLiveData<Attraction>()
     val locationSelectedLiveData =  MutableLiveData<Attraction>()
     fun init (context: Context) {

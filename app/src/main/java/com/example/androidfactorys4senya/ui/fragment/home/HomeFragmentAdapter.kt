@@ -3,11 +3,14 @@ package com.example.androidfactorys4senya.ui.fragment.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.epoxy.EpoxyController
 import com.example.androidfactorys4senya.R
 import com.example.androidfactorys4senya.data.Attraction
 import com.example.androidfactorys4senya.databinding.ViewHolderAttractionBinding
+import com.example.androidfactorys4senya.ui.epoxy.ViewBindingKotlinModel
 import com.squareup.picasso.Picasso
 
+/*
 class HomeFragmentAdapter(
     private val onClickedCallback: (String) -> Unit
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -40,4 +43,4 @@ class HomeFragmentAdapter(
             }
         }
     }
-}
+}*/
