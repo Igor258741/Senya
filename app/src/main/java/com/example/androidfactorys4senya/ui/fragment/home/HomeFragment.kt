@@ -32,9 +32,11 @@ class HomeFragment : BaseFragment() {
             activityViewModel.onAttractionSelected(attractionId)
             navController.navigate(R.id.action_homeFragment_to_attractionDetailFragment)
         }
-        binding.recyclerView.adapter = epoxyController.adapter
-        binding.recyclerView.addItemDecoration( DividerItemDecoration( requireContext(), RecyclerView.VERTICAL ))
+//        binding.epoxyRecyclerView.adapter = epoxyController.adapter
+        binding.epoxyRecyclerView.setController(epoxyController)
+        binding.epoxyRecyclerView.addItemDecoration( DividerItemDecoration( requireContext(), RecyclerView.VERTICAL ))
 
+        epoxyController.isLoading = true
         activityViewModel.attractionsListLiveData.observe(viewLifecycleOwner) { attractions ->
             epoxyController.attractions = attractions
         }

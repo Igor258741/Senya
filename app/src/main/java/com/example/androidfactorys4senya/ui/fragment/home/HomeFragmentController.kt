@@ -4,6 +4,7 @@ import com.airbnb.epoxy.EpoxyController
 import com.example.androidfactorys4senya.R
 import com.example.androidfactorys4senya.data.Attraction
 import com.example.androidfactorys4senya.databinding.ViewHolderAttractionBinding
+import com.example.androidfactorys4senya.ui.epoxy.LoadingEpoxyModel
 import com.example.androidfactorys4senya.ui.epoxy.ViewBindingKotlinModel
 import com.squareup.picasso.Picasso
 
@@ -27,6 +28,7 @@ class HomeFragmentController(
     override fun buildModels() {
         if (isLoading) {
             // todo show loading state
+            LoadingEpoxyModel().id("Loading state").addTo(this)
             return
         }
         if (attractions.isEmpty()) {

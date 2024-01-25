@@ -8,14 +8,15 @@
     tools:context=".ui.fragment.home.HomeFragment">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/epoxy_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:paddingBottom="24dp"
         android:clipToPadding="false"
+        tools:itemCount="5"
         tools:listitem="@layout/view_holder_attraction"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
