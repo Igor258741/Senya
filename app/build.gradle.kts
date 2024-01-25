@@ -3,8 +3,11 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp").version("1.6.10-1.0.4") // Or latest version of KSP
+    id("kotlin-kapt")
 }
-
+kapt {
+    correctErrorTypes = true
+}
 android {
     namespace = "com.example.androidfactorys4senya"
     compileSdk = 34
@@ -61,4 +64,8 @@ dependencies {
     implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
     //ksp
     ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+    //Epoxy
+    val epoxyVersion ="5.1.3"
+    implementation("com.airbnb.android:epoxy:$epoxyVersion")
+    kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
 }
