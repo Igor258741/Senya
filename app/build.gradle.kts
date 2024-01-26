@@ -68,4 +68,8 @@ dependencies {
     val epoxyVersion ="5.1.3"
     implementation("com.airbnb.android:epoxy:$epoxyVersion")
     kapt("com.airbnb.android:epoxy-processor:$epoxyVersion")
+    // Scrolling Page Indicator
+    implementation("ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.5")
+    // CardView
+    implementation("androidx.cardview:cardview:1.0.0")
 }

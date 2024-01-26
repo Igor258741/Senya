@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/attractionDetailFragment"
-        android:name="com.example.androidfactorys4senya.ui.fragment.AttractionDetailFragment"
+        android:name="com.example.androidfactorys4senya.ui.fragment.details.AttractionDetailFragment"
         android:label="AttractionDetail"
         tools:layout="@layout/fragment_acttraction_detail">
 <!--

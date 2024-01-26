@@ -3,6 +3,7 @@ package com.example.androidfactorys4senya.ui.fragment.home
 import com.airbnb.epoxy.EpoxyController
 import com.example.androidfactorys4senya.R
 import com.example.androidfactorys4senya.data.Attraction
+import com.example.androidfactorys4senya.databinding.EpoxyModelHeaderBinding
 import com.example.androidfactorys4senya.databinding.ViewHolderAttractionBinding
 import com.example.androidfactorys4senya.ui.epoxy.LoadingEpoxyModel
 import com.example.androidfactorys4senya.ui.epoxy.ViewBindingKotlinModel
@@ -35,10 +36,20 @@ class HomeFragmentController(
             // todo show empty state
             return
         }
+        val firstGroup = attractions.filter {
+            it.title.startsWith("s", true) || it.title.startsWith("D", true)
+        }
+        HeaderEpoxyModel("Recently Viewed").id("header_1").addTo(this)
+        firstGroup.forEach { attraction ->
+            AttractionEpoxyModel(attraction, onClickedCallback)
+                .id(attraction.id)
+                .addTo(this)
+        }
+        HeaderEpoxyModel("All Attractions").id("header_2").addTo(this)
         attractions.forEach { attraction ->
-            AttractionEpoxyModel( attraction, onClickedCallback)
-                .id( attraction.id)
-                .addTo( this)
+            AttractionEpoxyModel(attraction, onClickedCallback)
+                .id(attraction.id)
+                .addTo(this)
         }
     }
     data class AttractionEpoxyModel(
@@ -49,12 +60,23 @@ class HomeFragmentController(
             titleTextView.text = attraction.title
             monthsToVisitTextView.text = attraction.months_to_visit
             //image via Picasso
-            Picasso.get().load(attraction.image_urls[0]).into(headerImageView)
+            if (attraction.image_urls.isNotEmpty()) {
+                Picasso.get().load(attraction.image_urls[0]).into(headerImageView)
+            } else {
+                // better error handling
+            }
+
             root.setOnClickListener {
                 onClicked (attraction.id)
             }
         }
     }
-
+    data class HeaderEpoxyModel(
+        val headerText: String
+    ) : ViewBindingKotlinModel<EpoxyModelHeaderBinding>(R.layout.epoxy_model_header) {
+        override fun EpoxyModelHeaderBinding.bind() {
+            headerTextView.text = headerText
+        }
+    }
 
 }
